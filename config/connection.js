@@ -5,19 +5,20 @@ const startServer = async (server, PORT) => {
 
   try {
     await sequelize.authenticate();
-    
     console.log("Database Connected Successfully");
-
     await sequelize.sync();
     console.log("All models synced");
   } catch (error) {
     console.log("Database Connection failed:", error.message);
     process.exit(1);
   }
-
-  server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
+  try {
+    server.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (error) {
+    console.log("Server failed to start", error.message);
+  }
 };
 
 export default startServer;

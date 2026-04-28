@@ -1,7 +1,8 @@
 Migration Realated Commands
 ---------------------------------------------------------------------------------------------------------------
 npx sequelize-cli db:migrate -> use for run the migration
-npx sequelize-cli migration:generate --name create-user-table -> create empty migration
+npx sequelize-cli migration:generate --name create-college-table -> create empty migration
+npx sequelize-cli seed:generate --name add-super-admin
 
 
 

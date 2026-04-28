@@ -1,13 +1,18 @@
 import pkg from "sequelize";
 import { DataTypes } from "pkg";
 import { sequelize } from "../config/db.js";
-const User = sequelize.define(
-  "User",
+const Student = sequelize.define(
+  "Student",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+    },
+    roll_No: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
     },
     first_name: {
       type: DataTypes.STRING,
@@ -29,36 +34,38 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    otp: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: null,
-    },
-    otp_generated_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    is_active: {
-      type: DataTypes.SMALLINT,
-      allowNull: true,
-      defaultValue: 1, // active: 1 , Incative: 0
-    },
-    role_id: {
+    course_Id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "roles",
+        model: "courses",
         key: "id",
       },
     },
+    teacher_Id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "teachers",
+        key: "id",
+      },
+    },
+    is_active: {
+      type: DataTypes.SMALLINT,
+      defaultValue: 1,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
-    tableName: "users",
+    tableName: "students",
     timestamps: true,
   },
 );
-export default User;
+export default Student;

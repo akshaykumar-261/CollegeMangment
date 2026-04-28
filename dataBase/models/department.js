@@ -1,4 +1,4 @@
-import pkg from "sequlize";
+import pkg from "sequelize";
 import { DataTypes } from "pkg";
 import { sequelize } from "../config/db.js";
 const Department = sequelize.define(

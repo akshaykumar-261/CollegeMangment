@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../dataBase/models/user.js";
 import Role from "../dataBase/models/roles.js";
 
-export const authorize = async (req, res, next) => {
+ const authorize = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -18,7 +18,7 @@ export const authorize = async (req, res, next) => {
       include: [
         {
           model: Role,
-          attributes: ["name"],
+          attributes: ["role_name"],
         },
       ],
     });
@@ -32,3 +32,4 @@ export const authorize = async (req, res, next) => {
     res.status(401).json({ message: "Invalid Token" });
   }
 };
+export default authorize;

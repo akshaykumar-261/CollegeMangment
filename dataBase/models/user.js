@@ -1,6 +1,6 @@
 import pkg from "sequelize";
-import { DataTypes } from "pkg";
-import { sequelize } from "../config/db.js";
+const { DataTypes } = pkg
+import { sequelize } from "../../config/db.js";
 const User = sequelize.define(
   "User",
   {
@@ -19,10 +19,11 @@ const User = sequelize.define(
     },
     email: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
+      unique: true
     },
     phone_no: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     address: {
@@ -31,7 +32,7 @@ const User = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     otp: {
       type: DataTypes.INTEGER,
@@ -54,6 +55,14 @@ const User = sequelize.define(
         model: "roles",
         key: "id",
       },
+    },
+     createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {

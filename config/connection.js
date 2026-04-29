@@ -6,7 +6,9 @@ const startServer = async (server, PORT) => {
   try {
     await sequelize.authenticate();
     console.log("Database Connected Successfully");
-    await sequelize.sync();
+    //await sequelize.sync({ alter: true });
+       // console.log("All models synced");
+
     console.log("All models synced");
   } catch (error) {
     console.log("Database Connection failed:", error.message);

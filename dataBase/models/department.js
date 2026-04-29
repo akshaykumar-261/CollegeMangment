@@ -1,6 +1,6 @@
 import pkg from "sequelize";
-import { DataTypes } from "pkg";
-import { sequelize } from "../config/db.js";
+const { DataTypes } = pkg;
+import { sequelize } from "../../config/db.js";
 const Department = sequelize.define(
   "Department",
   {
@@ -17,6 +17,14 @@ const Department = sequelize.define(
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+     createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {

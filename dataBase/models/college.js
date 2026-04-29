@@ -1,6 +1,6 @@
 import pkg from "sequelize";
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/db.js";
+const { DataTypes } = pkg
+import { sequelize } from "../../config/db.js";
 const College = sequelize.define(
   "College",
   {

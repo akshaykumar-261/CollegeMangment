@@ -1,6 +1,6 @@
 import pkg from "sequelize";
-import { DataTypes } from "pkg";
-import { sequelize } from "../config/db.js";
+const { DataTypes } = pkg;
+import { sequelize } from "../../config/db.js";
 const Teacher = sequelize.define(
   "Teacher",
   {
@@ -33,6 +33,14 @@ const Teacher = sequelize.define(
       type: DataTypes.SMALLINT,
       allowNull: true,
       defaultValue: 1, // active: 1 , Incative: 0
+    },
+     createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {

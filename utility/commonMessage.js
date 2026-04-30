@@ -32,7 +32,7 @@ export const COLLEGE_MESSAGE = {
   COLLEGE_FETCHED_SINGLE: "College fetched successfully",
   COLLEGE_UPDATED: "College updated successfully",
   COLLEGE_DELETED: "College deleted successfully",
-
+  COLLEGE_EXISITE: "College is already exist",
   COLLEGE_NOT_FOUND: "College not found",
   NO_COLLEGE_FOUND: "No colleges found",
 
@@ -48,6 +48,7 @@ export const HOD_MESSAGE = {
   HOD_FETCHED_SINGLE: "HOD fetched successfully",
   HOD_UPDATED: "HOD updated successfully",
   HOD_DELETED: "HOD removed successfully",
+  HOD_ROLE: "Selected user is not HOD",
 
   HOD_NOT_FOUND: "HOD not found",
   NO_HOD_FOUND: "No HODs found",

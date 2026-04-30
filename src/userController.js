@@ -1,4 +1,4 @@
-import User from "../dataBase/models/user.js";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { STATUS } from "../utility/statusCode.js";
@@ -115,7 +115,6 @@ export const userDelete = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await findUserById(id);
-     console.log("==========>", user);
     if (!user) {
       return sendResponse(res, STATUS.BAD_REQUEST, USER_MESSAGE.USER_NOT_FOUND);
     }

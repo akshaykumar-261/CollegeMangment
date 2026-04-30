@@ -3,6 +3,10 @@ Migration Realated Commands
 npx sequelize-cli db:migrate -> use for run the migration
 npx sequelize-cli migration:generate --name create-user_columnchnages-table -> create empty migration
 npx sequelize-cli seed:generate --name add-super-admin
-
+npx sequelize-cli db:seed --seed seeder-file-roleSeeder.cjs
+------------------------------------------------------------------------
+ALTER TABLE hods
+ADD COLUMN createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
 

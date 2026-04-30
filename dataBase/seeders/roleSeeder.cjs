@@ -16,6 +16,16 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+         {
+        role_name: "HOD",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+            {
+        role_name: "Teacher",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

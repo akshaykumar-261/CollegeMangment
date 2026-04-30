@@ -7,7 +7,7 @@ const startServer = async (server, PORT) => {
     await sequelize.authenticate();
     console.log("Database Connected Successfully");
     //await sequelize.sync({ alter: true });
-       // console.log("All models synced");
+    //console.log("All models synced");
 
     console.log("All models synced");
   } catch (error) {

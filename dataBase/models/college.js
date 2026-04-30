@@ -1,5 +1,5 @@
 import pkg from "sequelize";
-const { DataTypes } = pkg
+const { DataTypes } = pkg;
 import { sequelize } from "../../config/db.js";
 const College = sequelize.define(
   "College",
@@ -18,7 +18,7 @@ const College = sequelize.define(
       alloNull: true,
     },
     college_Phone_No: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.BIGINT,
       alloNull: true,
     },
     location: {
@@ -42,6 +42,14 @@ const College = sequelize.define(
       type: DataTypes.SMALLINT,
       allowNull: true,
       defaultValue: 1, // active: 1 , Incative: 0
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {

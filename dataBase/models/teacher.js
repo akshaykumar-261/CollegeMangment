@@ -34,7 +34,7 @@ const Teacher = sequelize.define(
       allowNull: true,
       defaultValue: 1, // active: 1 , Incative: 0
     },
-     createdAt: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
     },

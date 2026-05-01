@@ -55,7 +55,7 @@ const User = sequelize.define(
         model: "roles",
         key: "id",
       },
-    },
+    }, 
      createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

@@ -14,12 +14,12 @@ route.post(
   hodController.hodCreate,
 );
 route.put(
-  "/updateHod",
+  "/updateHod/:id",
   authorize,
   role,
   validation.validateRequest(validation.updateHodSchema),
   hodController.hodUpdate,
 );
 route.get("/getHodList", authorize, role, hodController.getHodsList);
-route.delete("/hodDelete", authorize, role, hodController.hodDelete);
+route.delete("/hodDelete/:id", authorize, role, hodController.hodDelete);
 export default route;

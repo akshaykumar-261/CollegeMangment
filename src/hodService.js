@@ -1,5 +1,8 @@
 import { Op } from "sequelize";
 import HODModel from "../dataBase/models/HOD.js";
+import User from "../dataBase/models/user.js";
+import College from "../dataBase/models/college.js";
+import Department from "../dataBase/models/department.js";
 
 export const createHodDetail = async (data) => {
   return await HODModel.create(data);
@@ -44,6 +47,20 @@ export const getAllHod = async ({ page = 1, limit = 10, search = "" }) => {
     where: whereCondition,
     limit: parseInt(limit),
     offset: parseInt(offset),
+    include: [
+      {
+        model: User,
+        attributes:["id","first_name","last_name","email"],
+      },
+      {
+        model: College,
+        attributes:["id","college_name"],
+      },
+      {
+        model: Department,
+        attributes:["id","dept_name"],
+      }
+    ]
   });
 
   return {

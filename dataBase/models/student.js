@@ -27,7 +27,7 @@ const Student = sequelize.define(
       allowNull: true,
     },
     phone_no: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     address: {

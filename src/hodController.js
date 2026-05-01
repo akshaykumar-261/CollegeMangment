@@ -18,17 +18,17 @@ export const hodCreate = async (req, res) => {
     if (!user_Id || !college_Id || !department_Id) {
       return sendResponse(res, STATUS.BAD_REQUEST, HOD_MESSAGE.REQUIRED_FIELDS);
     }
-      // verify user exists and has role HOD
-      const user = await User.findOne({
-        where: { id: user_Id, is_active: 1 },
-        include: Role,
-      });
-      if (!user) {
-        return sendResponse(res, STATUS.BAD_REQUEST, HOD_MESSAGE.HOD_NOT_FOUND);
-      }
-      if (user.Role?.role_name !== "HOD") {
-        return sendResponse(res, STATUS.BAD_REQUEST, HOD_MESSAGE.HOD_ROLE);
-      }
+    // verify user exists and has role HOD
+    const user = await User.findOne({
+      where: { id: user_Id, is_active: 1 },
+      include: Role,
+    });
+    if (!user) {
+      return sendResponse(res, STATUS.BAD_REQUEST, HOD_MESSAGE.HOD_NOT_FOUND);
+    }
+    if (user.Role?.role_name !== "HOD") {
+      return sendResponse(res, STATUS.BAD_REQUEST, HOD_MESSAGE.HOD_ROLE);
+    }
     const hod = await createHodDetail(req.body);
     return sendResponse(res, STATUS.CREATED, HOD_MESSAGE.HOD_CREATED, { hod });
   } catch (error) {
@@ -60,7 +60,7 @@ export const hodUpdate = async (req, res) => {
 };
 
 export const hodDelete = async (req, res) => {
-  try {
+  try { 
     const { id } = req.params;
 
     const existing = await findHodDetailById(id);

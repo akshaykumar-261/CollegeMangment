@@ -65,6 +65,7 @@ export const TEACHER_MESSAGE = {
   TEACHER_FETCHED_SINGLE: "Teacher fetched successfully",
   TEACHER_UPDATED: "Teacher updated successfully",
   TEACHER_DELETED: "Teacher removed successfully",
+  TEACHER_ROLE: "Selected user is not Teacher",
 
   TEACHER_NOT_FOUND: "Teacher not found",
   NO_TEACHER_FOUND: "No teachers found",

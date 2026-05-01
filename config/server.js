@@ -5,13 +5,17 @@ import startServer from "./connection.js";
 import userRoutes from "../routes/userRoutes.js";
 import collegeRoutes from "../routes/collegeRoutes.js";
 import hodRoutes from "../routes/hodRoute.js";
-import "../dataBase/models/association.js";
+import teacherRoutes from "../routes/teacherRoutes.js";
+import studentRoutes from "../routes/studentRoutes.js";
+import "../config/association.js";
 const app = express();
 app.use(express.json());
 const server = http.createServer(app);
 app.use("/api/users", userRoutes);
 app.use("/api/college", collegeRoutes);
 app.use("/api/hod", hodRoutes);
+app.use("/api/teacher", teacherRoutes);
+app.use("/api/student", studentRoutes);
 const PORT = process.env.PORT;
 
 startServer(server, PORT);

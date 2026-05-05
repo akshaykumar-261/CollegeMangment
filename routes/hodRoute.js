@@ -5,7 +5,7 @@ import * as validation from "../src/hodValidation.js";
 import * as hodController from "../src/hodController.js";
 
 const route = express.Router();
-const role = checkRole("Super Admin");
+const role = checkRole("Super Admin","Admin","Principal");
 route.post(
   "/createHod",
   authorize,

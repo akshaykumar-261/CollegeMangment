@@ -5,7 +5,7 @@ import * as validation from "../src/studentValidation.js";
 import * as studentController from "../src/studentController.js";
 
 const route = express.Router();
-const role = checkRole("Super Admin");
+const role = checkRole("Super Admin","Admin","Principal","HOD","Teacher");
 route.post(
   "/createStudent",
   authorize,

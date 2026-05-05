@@ -4,7 +4,7 @@ import authorize from "../meddlweare/authmeddleweare.js";
 import * as validation from "../src/collegeValidation.js";
 import * as collegeController from "../src/collegeController.js";
 const route = express.Router();
-const role = checkRole("Super Admin");
+const role = checkRole("Super Admin","Admin");
 route.post(
   "/createCollege",
   authorize,

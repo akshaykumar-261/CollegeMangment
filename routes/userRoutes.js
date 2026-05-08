@@ -34,5 +34,7 @@ router.delete(
   validation.validateRequest(validation.idParamSchema),
   userController.userDelete,
 );
+router.post("/refreshToken", userController.refreshAccessToken);
+router.post("/logout", authorize, userController.logout);
 
 export default router;

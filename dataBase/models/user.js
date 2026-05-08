@@ -1,5 +1,5 @@
 import pkg from "sequelize";
-const { DataTypes } = pkg
+const { DataTypes } = pkg;
 import { sequelize } from "../../config/db.js";
 const User = sequelize.define(
   "User",
@@ -20,7 +20,7 @@ const User = sequelize.define(
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     phone_no: {
       type: DataTypes.BIGINT,
@@ -43,6 +43,11 @@ const User = sequelize.define(
       type: DataTypes.DATE,
       allowNull: true,
     },
+    refreshToken: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: null,
+    },
     is_active: {
       type: DataTypes.SMALLINT,
       allowNull: true,
@@ -55,8 +60,8 @@ const User = sequelize.define(
         model: "roles",
         key: "id",
       },
-    }, 
-     createdAt: {
+    },
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
     },

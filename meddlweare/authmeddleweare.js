@@ -9,7 +9,7 @@ import Role from "../dataBase/models/roles.js";
       return res.status(401).json({ message: "Unauthorize user" });
     }
     const token = authHeader.split(" ")[1];
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const decode = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
     const user = await User.findOne({
       where: {
         id: decode.id,

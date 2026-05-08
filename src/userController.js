@@ -1,4 +1,3 @@
-
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { STATUS } from "../utility/statusCode.js";
@@ -78,17 +77,26 @@ export const login = async (req, res) => {
       );
     }
 
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
       {
         id: userInDb.id,
         role_id: userInDb.role_id,
         email: userInDb.email,
       },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" },
+      process.env.JWT_ACCESS_SECRET,
+      { expiresIn: "10m" },
     );
+    const refreshToken = jwt.sign(
+      { id: userInDb.id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: "7d" },
+    );
+    userInDb.refreshToken = refreshToken;
+
+    await userInDb.save();
     return sendResponse(res, STATUS.SUCCESS, USER_MESSAGE.LOGIN_SUCCESS, {
-      token,
+      accessToken,
+      refreshToken,
     });
   } catch (error) {
     console.log(`Error creating Employee: ${error}`);
@@ -104,7 +112,9 @@ export const userUpdate = async (req, res) => {
       return sendResponse(res, STATUS.BAD_REQUEST, USER_MESSAGE.USER_NOT_FOUND);
     }
     await updateUser(id, req.body);
-    return sendResponse(res, STATUS.SUCCESS, USER_MESSAGE.USER_UPDATED,{user});
+    return sendResponse(res, STATUS.SUCCESS, USER_MESSAGE.USER_UPDATED, {
+      user,
+    });
   } catch (error) {
     console.log(`Error creating Employee: ${error}`);
     return sendResponse(res, STATUS.SERVER_ERROR, USER_MESSAGE.SERVER_ERROR);
@@ -118,7 +128,7 @@ export const userDelete = async (req, res) => {
     if (!user) {
       return sendResponse(res, STATUS.BAD_REQUEST, USER_MESSAGE.USER_NOT_FOUND);
     }
-   
+
     await deleteUser(id);
     return sendResponse(res, STATUS.SUCCESS, USER_MESSAGE.USER_DELETED);
   } catch (error) {
@@ -131,6 +141,92 @@ export const getUsers = async (req, res) => {
     let { page = 1, limit = 10, search = "" } = req.query;
     const data = await getAllUser({ page, limit, search });
     return sendResponse(res, STATUS.SUCCESS, "Users fetched", data);
+  } catch (error) {
+    console.log(error);
+    return sendResponse(res, STATUS.SERVER_ERROR, USER_MESSAGE.SERVER_ERROR);
+  }
+};
+
+export const refreshAccessToken = async (req, res) => {
+  try {
+
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return sendResponse(
+        res,
+        STATUS.UNAUTHORIZED,
+        "Refresh token required"
+      );
+    }
+    // VERIFY REFRESH TOKEN
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET
+    );
+    // FIND USER
+    const user = await findUserById(decoded.id);
+    if (!user) {
+      return sendResponse(
+        res,
+        STATUS.NOT_FOUND,
+        USER_MESSAGE.USER_NOT_FOUND
+      );
+    }
+    // CHECK TOKEN MATCH
+    if (user.refreshToken !== refreshToken) {
+      return sendResponse(
+        res,
+        STATUS.UNAUTHORIZED,
+        "Invalid refresh token"
+      );
+    }
+    // GENERATE NEW ACCESS TOKEN
+    const newAccessToken = jwt.sign(
+      {
+        id: user.id,
+        role_id: user.role_id,
+        email: user.email,
+      },
+      process.env.JWT_ACCESS_SECRET,
+      {
+        expiresIn: "15m",
+      }
+    );
+    return sendResponse(
+      res,
+      STATUS.SUCCESS,
+      "New access token generated",
+      {
+        accessToken: newAccessToken,
+      }
+    );
+
+  } catch (error) {
+
+    console.log(error);
+    return sendResponse(res, STATUS.SERVER_ERROR, USER_MESSAGE.SERVER_ERROR);
+  }
+};
+export const logout = async (req, res) => {
+  try {
+
+    const userId = req.user.id;
+    const user = await findUserById(userId);
+    if (!user) {
+      return sendResponse(
+        res,
+        STATUS.NOT_FOUND,
+        USER_MESSAGE.USER_NOT_FOUND
+      );
+    }
+    user.refreshToken = null;
+    await user.save();
+    return sendResponse(
+      res,
+      STATUS.SUCCESS,
+      "Logout successful"
+    );
   } catch (error) {
     console.log(error);
     return sendResponse(res, STATUS.SERVER_ERROR, USER_MESSAGE.SERVER_ERROR);
